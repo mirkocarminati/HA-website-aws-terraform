@@ -52,3 +52,12 @@ terraform apply
 The plan tells you that Terraform must destroy and then create replacement instances. This is because the _user_data_ must be executed when an instance is first launched.
 
 
+## Configuring Network Resources for Elastic Load Balancing 
+
+We now have two instances hosting the custom website. The instances are running in private subnets in different availability zones and are assigned to the default security group for the VPC that allows all traffic. There are a few resources that need to be created to allow for an Elastic Load Balancer (ELB) to securely distribute traffic between the instances:
+
+- Public subnets for each availability zone must be created so the load balancer can be accessed from the internet. This requires additional resources such as an internet gateway to connect to the internet, and route tables that route to the internet.
+- A security group to allow traffic from the internet to the public subnets that will house the ELB on port 80 (HTTP)
+- A security group to allow traffic from the ELB in the public subnets to the instances in the private subnets on port 80 (HTTP)
+
+These networking resouces are defined in the _networking.tf_ file.
