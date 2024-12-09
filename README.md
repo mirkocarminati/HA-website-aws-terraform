@@ -3,7 +3,7 @@ Deploying a highly available website on AWS using Terraform
 
 ## Introduction
 
-At the beginning of the project, we have a partial Terraform configuraiton (main.tf, variables.tf, outputs.tf) describing a VPC, two private subnets and two instances running the Apache web server.
+At the beginning of the project, we have a partial Terraform configuraiton (_main.tf_, _variables.tf_, _outputs.tf_) describing a VPC, two private subnets and two instances running the Apache web server.
 
 Our goal is to create a highly available configuration for this website:
 
@@ -61,3 +61,16 @@ We now have two instances hosting the custom website. The instances are running 
 - A security group to allow traffic from the ELB in the public subnets to the instances in the private subnets on port 80 (HTTP)
 
 These networking resouces are defined in the _networking.tf_ file.
+
+Next, we define security groups that will secure traffic into the public and private subnets in a configuration file called _security.tf_.
+We also need to update the _main.tf_ file to attach the web server security group.
+
+After these changes, let's run _terraform apply_:
+
+```
+terraform apply
+```
+
+This change doesn't require recreation and an update in-place can be performed.
+
+
