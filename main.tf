@@ -36,6 +36,9 @@ resource "aws_instance" "web" {
   # Use instance user_data to serve the custom website
   user_data     = "${file("user_data.sh")}"
 
+  # Attach the web server security group
+  vpc_security_group_ids = ["${aws_security_group.web_sg.id}"]
+
   tags = {
     Name = "Web Server ${count.index + 1}"
   }
