@@ -73,4 +73,11 @@ terraform apply
 
 This change doesn't require recreation and an update in-place can be performed.
 
+## Configuring an Elastic Load Balancer
+
+The final step is to create an ELB so that the website will be highly-available. In case one instance is down, the ELB will continue serving the website from the other instance.
+The ELB is defined in the _load_balancer.tf_ file. It is internet-facing by default.
+
+We will add an output that will save the DNS address of the ELB as the website address.
+
 
