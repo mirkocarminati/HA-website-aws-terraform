@@ -86,14 +86,14 @@ Let's apply the configuration changes:
 terraform apply
 ```
 
-Now let's store the site_address output in a shell variable and remove the quotation marks.
+Now let's store the _site_address_ output in a shell variable and remove the quotation marks.
 
 ```
 site_address=$(terraform output site_address)
 site_address=${site_address//\"/}
 ```
 
-To verify the ELB is working, send an HTTP request to the ELB every two seconds using the watch and curl command:
+To verify the ELB is working, send an HTTP request to the ELB every two seconds using the _watch_ and _curl_ command:
 
 ```
 watch curl -s $site_address
