@@ -49,7 +49,7 @@ And apply changes:
 terraform apply
 ```
 
-The plan tells you that Terraform must destroy and then create replacement instances. This is because the _user_data_ must be executed when an instance is first launched.
+The plan tells us that Terraform must destroy and then create replacement instances. This is because the _user_data_ must be executed when an instance is first launched.
 
 
 ## Configuring Network Resources for Elastic Load Balancing 
@@ -80,4 +80,24 @@ The ELB is defined in the _load_balancer.tf_ file. It is internet-facing by defa
 
 We will add an output that will save the DNS address of the ELB as the website address.
 
+Let's apply the configuration changes: 
+
+```
+terraform apply
+```
+
+Now let's store the site_address output in a shell variable and remove the quotation marks.
+
+```
+site_address=$(terraform output site_address)
+site_address=${site_address//\"/}
+```
+
+To verify the ELB is working, send an HTTP request to the ELB every two seconds using the watch and curl command:
+
+```
+watch curl -s $site_address
+```
+
+It takes about a minute for the ELB to start sending requests to the instances. We will eventually see messages from the web server instances and notice the instance ID changing between two values. This verifies the ELB is distributing the traffic to all of the instances. Press _ctrl+c_ to stop the watch command.
 
